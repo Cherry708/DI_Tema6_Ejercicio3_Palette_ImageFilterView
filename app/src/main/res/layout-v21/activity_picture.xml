@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_picture_scene"
     tools:context=".PictureActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,60 +18,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/tvLight"
+        app:contrast="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:transitionName="transition_image"
-        app:srcCompat="@drawable/image7" />
+        app:srcCompat="@drawable/image7"
+        app:warmth="1" />
+
+    <SeekBar
+        android:id="@+id/contrastSeekBar"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFilterView" />
+
+    <SeekBar
+        android:id="@+id/warmthSeekBar"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contrastSeekBar" />
 
     <TextView
-        android:id="@+id/tvLight"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center|start"
-        android:text="    Light Vibrant"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvMuted"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/tvContrast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Contrast"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/contrastSeekBar"
+        app:layout_constraintEnd_toStartOf="@+id/contrastSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/contrastSeekBar" />
 
     <TextView
-        android:id="@+id/tvMuted"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center|start"
-        android:text="    Muted"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvDarkMuted"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/tvWarmth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Warmth"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/warmthSeekBar"
+        app:layout_constraintEnd_toStartOf="@+id/warmthSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/warmthSeekBar" />
 
-    <TextView
-        android:id="@+id/tvDarkMuted"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center|start"
-        android:text="    Dark Muted"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvLightMuted"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvLightMuted"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center|start"
-        android:text="    Light Muted"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

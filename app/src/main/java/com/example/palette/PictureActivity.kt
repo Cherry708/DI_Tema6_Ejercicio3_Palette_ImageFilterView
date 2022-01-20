@@ -2,13 +2,14 @@ package com.example.palette
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.SeekBar
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.palette.graphics.Palette
 
 class PictureActivity : AppCompatActivity() {
@@ -19,17 +20,13 @@ class PictureActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = "Palette"
 
-        val tvLight = findViewById<TextView>(R.id.tvLight)
-        val tvMuted = findViewById<TextView>(R.id.tvMuted)
-        val tvDarkMuted = findViewById<TextView>(R.id.tvDarkMuted)
-        val tvLightMuted = findViewById<TextView>(R.id.tvLightMuted)
-
-        val imageView = findViewById<ImageView>(R.id.imageView)
+        val imageFilterView = findViewById<ImageFilterView>(R.id.imageFilterView)
+        val contrast = findViewById<SeekBar>(R.id.contrastSeekBar)
+        val warmth = findViewById<SeekBar>(R.id.warmthSeekBar)
 
         val bundle = intent.extras
         val chosenImage = bundle!!.getInt("chosenImage")
-        imageView.setImageDrawable(resources.getDrawable(chosenImage))
-
+        imageFilterView.setImageResource(chosenImage)
 //        val intent = getIntent()
 //        val extras = intent.getExtras()
 //        val chosenImage = extras!!.getInt("chosenImage")
@@ -56,25 +53,55 @@ class PictureActivity : AppCompatActivity() {
                 }
             }
 
-            if (lightvibrant != null){
-                tvLight.setBackgroundColor(lightvibrant.rgb)
-                tvLight.setTextColor(lightvibrant.titleTextColor)
-            }
+            contrast?.setOnSeekBarChangeListener(object :
+                SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seek: SeekBar,
+                    progress: Int, fromUser: Boolean
+                ) {
+                    imageFilterView.contrast = contrast.progress.toFloat() / 100 + 1
+                }
 
-            if (muted != null){
-                tvMuted.setBackgroundColor(muted.rgb)
-                tvMuted.setTextColor(muted.titleTextColor)
-            }
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                    imageFilterView.contrast = contrast.progress.toFloat() / 100 + 1
+                }
 
-            if (darkmuted != null){
-                tvDarkMuted.setBackgroundColor(darkmuted.rgb)
-                tvDarkMuted.setTextColor(darkmuted.titleTextColor)
-            }
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+                    imageFilterView.contrast = contrast.progress.toFloat() / 100 + 1
+                }
+            })
 
-            if (lightmuted != null){
-                tvLightMuted.setBackgroundColor(lightmuted.rgb)
-                tvLightMuted.setTextColor(lightmuted.titleTextColor)
-            }
+            warmth?.setOnSeekBarChangeListener(object :
+                SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seek: SeekBar,
+                    progress: Int, fromUser: Boolean
+                ) {
+                    imageFilterView.warmth = warmth.progress.toFloat() / 100 + 1
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                    imageFilterView.warmth = warmth.progress.toFloat() / 100 + 1
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+                    imageFilterView.warmth = warmth.progress.toFloat() / 100 + 1
+                }
+            })
+
+//            imageFilterView.setOnClickListener( object : View.OnClickListener {
+//                var esSaturada = true
+//                override fun onClick(p0: View?) {
+//                    if (esSaturada) {
+//                        imageFilterView.saturation = 0.0f
+//                        esSaturada = false
+//                    } else {
+//                        imageFilterView.saturation = 1.0f
+//                        esSaturada = true
+//                    }
+//                }
+//            })
+
         }
     }
 }
